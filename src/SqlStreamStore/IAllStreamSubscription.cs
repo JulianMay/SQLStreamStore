@@ -18,6 +18,15 @@
         /// The last position processed by the subscription. Will be -1 if nothing has yet been processed.
         /// </summary>
         long? LastPosition { get; }
+        
+        /// <summary>
+        /// The position of the last message in the latest page-read that (at read-time) was the last page in the stream.
+        /// This value is not set before a 'last page' has been read.
+        /// </summary>
+        /// <remarks>
+        /// Useful for controlling stuff like 'commit or batch'-strategies for ReadModels etc.
+        /// </remarks>
+        long? LatestKnownEndOfStreamPosition { get; }
 
         /// <summary>
         /// A task that represents the subscription has been started. Is is usually not necessary to await this

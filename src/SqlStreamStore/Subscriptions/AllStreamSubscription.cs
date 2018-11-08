@@ -71,6 +71,9 @@
 
         /// <inheritdoc />
         public long? LastPosition { get; private set; }
+        
+        /// <inheritdoc />
+        public long? LatestKnownEndOfStreamPosition { get; private set; }
 
         /// <inheritdoc />
         public Task Started => _started.Task;
@@ -127,6 +130,9 @@
                         _hasCaughtUp(page.IsEnd);
                     }
 
+                    if(page.IsEnd)
+                        LatestKnownEndOfStreamPosition = page.NextPosition-1;
+                    
                     pause = page.IsEnd && page.Messages.Length == 0;
                 }
 
